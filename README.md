@@ -1,6 +1,6 @@
 # DevCleaner
 
-A fast, lightweight development cache cleaner for macOS, rewritten in Nim.
+A fast, lightweight development project cleaner for macOS, rewritten in Nim.
 
 ![Screenshot](./screen_capture.gif)
 
@@ -124,6 +124,12 @@ DevCleaner/
 ├── notes/                    # Development notes
 └── devcleaner.nimble         # Package manifest
 ```
+
+## Support This Project
+
+DevCleaner Community is free and open source. If you find it useful and want to support continued development, you can purchase the paid version which includes additional features and priority support:
+
+https://bradleynash.gumroad.com/l/devcleaner
 
 ## License
 

@@ -8,7 +8,6 @@ import nanovg
 import ./glfw_nanovg
 import ./rendering
 import ./icons
-import ./icon_cache
 
 type
   Window* = glfw_nanovg.GNVGWindow
@@ -367,9 +366,6 @@ proc newUI*(width, height: int32): UI =
   # Initialize disk info (no scan needed)
   result.diskInfo = getDiskSpaceInfo()
 
-  # Initialize icon cache for GPU performance
-  initIconCache(result.window.vg)
-
   # Update native toolbar disk info labels after UI initialization
   when defined(macosx):
     updateDiskInfoLabels()
@@ -380,9 +376,6 @@ proc destroyUI*(ui: UI) =
   ## Clean up UI resources
   # Disconnect Discord RPC
   disconnectDiscord()
-
-  # Clean up icon cache
-  cleanupIconCache(ui.window.vg)
 
   # Close static scan channel if open
   if ui.staticScanChannel != nil:
@@ -564,21 +557,25 @@ proc drawAppList(ui: UI) =
         let durationX = w - margin - DurationColumnRightOffset * s - durationWidth
         drawText(win.vg, durationX, statusY, durationStr, StatusFontSize * s, ui.theme.textMuted, latinFont)
 
-      let iconY = currentY + currentItemHeight / 2 - IconYOffset * s
-      let trashX = w - margin - 60.0 * s
-      let chevronX = w - margin - 30.0 * s
+      let iconSize = TrashIconSize * s
+      let chevronSize = ChevronIconSize * s
+      let iconY = currentY + currentItemHeight / 2 - iconSize / 2
+      let trashX = w - margin - chevronSize - iconSize - 12.0 * s
+      let chevronX = w - margin - chevronSize
 
       let isTrashHovered = ui.hoverTrashIndex == i
       let isChevronHovered = ui.hoverArrowIndex == i
+      let trashColor = if isTrashHovered: ui.theme.accent else: ui.theme.textMuted
+      let chevronColor = if isChevronHovered: ui.theme.accent else: ui.theme.textMuted
 
       if app.task != nil and app.task.cache.len > 0:
-        drawCachedIcon(win.vg, ikTrash, trashX, iconY, TrashIconSize * s, isTrashHovered)
+        drawTrashIcon(win.vg, trashX, iconY, iconSize, trashColor)
 
       let chevronAngle = app.expandAnim * 90.0
       win.vg.save()
-      win.vg.translate(chevronX + IconYOffset * s, iconY + IconYOffset * s)
+      win.vg.translate(chevronX + chevronSize / 2, iconY + chevronSize / 2)
       win.vg.rotate(chevronAngle * 3.14159 / 180.0)
-      drawCachedIcon(win.vg, ikChevronRight, -IconYOffset * s, -IconYOffset * s, ChevronIconSize * s, isChevronHovered)
+      drawChevronRight(win.vg, -chevronSize / 2, -chevronSize / 2, chevronSize, chevronColor)
       win.vg.restore()
 
       if app.expandAnim > 0.0 and app.task.cache.len > 0:
@@ -637,15 +634,19 @@ proc drawAppList(ui: UI) =
           drawText(win.vg, lastAccessedColumnX, detailY + expandedItemHeight / 2, entry.lastAccessed, detailFontSize,
               mutedColor, latinFont)
 
-          let iconY = detailY + expandedItemHeight / 2 - DetailIconYOffset * s
-          let trashX = w - margin - 60.0 * s
-          let infoX = w - margin - 30.0 * s
+          let detailIconSize = DetailInfoIconSize * s
+          let detailTrashSize = DetailTrashIconSize * s
+          let iconY = detailY + expandedItemHeight / 2 - detailIconSize / 2
+          let infoX = w - margin - detailIconSize
+          let trashX = infoX - detailTrashSize - 12.0 * s
 
           let isDetailTrashHovered = ui.hoverTrashAppIndex == i and ui.hoverTrashPathIndex == j
           let isDetailInfoHovered = ui.hoverInfoAppIndex == i and ui.hoverInfoPathIndex == j
+          let detailTrashColor = (if isDetailTrashHovered: ui.theme.accent else: ui.theme.textMuted).withAlpha(rowProgress)
+          let detailInfoColor = (if isDetailInfoHovered: ui.theme.accent else: ui.theme.textMuted).withAlpha(rowProgress)
 
-          drawCachedIcon(win.vg, ikTrashSmall, trashX, iconY, DetailTrashIconSize * s, isDetailTrashHovered, rowProgress)
-          drawCachedIcon(win.vg, ikInfo, infoX, iconY, DetailInfoIconSize * s, isDetailInfoHovered, rowProgress)
+          drawTrashIcon(win.vg, trashX, iconY, detailTrashSize, detailTrashColor)
+          drawInfoIcon(win.vg, infoX, iconY, detailIconSize, detailInfoColor)
 
           detailY += expandedItemHeight
 
