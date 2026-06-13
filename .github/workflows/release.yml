@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.8'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: nimble install -y
+
+      - name: Install nimpacker
+        run: nimble install -y nimpacker
+
+      - name: Build app bundle
+        run: nimpacker build -t macos -r -a arm64
+
+      - name: Ad-hoc sign app
+        run: |
+          codesign --force --options runtime --deep --sign - \
+            --entitlements "app.entitlements" \
+            "build/macos/Release/DevCleaner.app"
+
+      - name: Create ZIP
+        run: |
+          ditto -c -k --keepParent \
+            "build/macos/Release/DevCleaner.app" \
+            "DevCleaner-macos-arm64.zip"
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: DevCleaner-macos-arm64.zip
+          generate_release_notes: true

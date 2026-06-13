@@ -1,0 +1,417 @@
+# Unified Cache Cleaner Configuration - All entries use `project` block
+
+# ── Project Rules (use search block) ──
+project rust {
+    bin cargo
+    search {
+        type recursive
+        base "~"
+        markers Cargo.toml
+        target target
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project zig {
+    bin zig
+    search {
+        type recursive
+        base "~"
+        markers build.zig
+        targets zig-cache zig-out
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project swift {
+    bin swift
+    search {
+        type recursive
+        base "~"
+        markers Package.swift
+        target .build
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project gradle {
+    bin gradle
+    search {
+        type recursive
+        base "~"
+        markers build.gradle build.gradle.kts
+        targets build .gradle
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project maven {
+    bin mvn
+    search {
+        type recursive
+        base "~"
+        markers pom.xml
+        target target
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project node {
+    bin node
+    search {
+        type recursive
+        base "~"
+        markers package.json
+        target node_modules
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project composer {
+    bin composer
+    search {
+        type recursive
+        base "~"
+        markers composer.json
+        target vendor
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project flutter {
+    bin flutter
+    search {
+        type recursive
+        base "~"
+        markers pubspec.yaml
+        targets build .dart_tool
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project haskell {
+    bin stack
+    search {
+        type recursive
+        base "~"
+        markers stack.yaml
+        target .stack-work
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project elixir {
+    bin mix
+    search {
+        type recursive
+        base "~"
+        markers mix.exs
+        targets _build deps
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project nim {
+    bin nim
+    search {
+        type recursive
+        base "~"
+        markers *.nimble
+        target nimcache
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project nimble {
+    search {
+        type static
+        dirs "~/.nimble/pkgs" "~/.nimble/pkgcache"
+    }
+}
+
+project choosenim {
+    search {
+        type static
+        dirs "~/.choosenim/downloads"
+    }
+}
+
+project yarn {
+    search {
+        type static
+        dirs "~/Library/Caches/Yarn"
+    }
+}
+
+project pnpm {
+    bin pnpm
+    search {
+        type static
+        dirs "~/.pnpm-store" "~/Library/pnpm/store" "~/.local/share/pnpm/store" "~/Library/Caches/pnpm" "~/.cache/pnpm"
+    }
+}
+
+project python {
+    bin python python3
+    search {
+        type recursive
+        base "~"
+        markers bin/python bin/python3 Scripts/python.exe pyvenv.cfg
+        targets bin lib include share
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        allow_hidden .venv .env
+        skip_hidden true
+    }
+}
+
+project ruby {
+    bin ruby
+    search {
+        type regex
+        base "~"
+        pattern "(gems|ruby)/[^/]+/cache"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden_except .rvm .rbenv .gem .rubies
+    }
+}
+
+project bundler {
+    search {
+        type static
+        dirs "~/.bundle/cache"
+    }
+}
+
+project go {
+    bin go
+    search {
+        type recursive
+        base "~"
+        markers go.mod
+        target vendor
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project cargo-cache {
+    search {
+        type static
+        dirs "~/.cargo/registry/cache" "~/.cargo/git/checkouts"
+    }
+}
+
+project docker {
+    search {
+        type static
+        dirs "~/.docker/buildx"
+    }
+}
+
+project homebrew {
+    search {
+        type static
+        dirs "~/Library/Caches/Homebrew"
+    }
+}
+
+project npm {
+    search {
+        type static
+        dirs "~/.npm"
+    }
+}
+
+project pip {
+    search {
+        type static
+        dirs "~/Library/Caches/pip" "~/.cache/pip"
+    }
+}
+
+project cmake {
+    bin cmake
+    search {
+        type recursive
+        base "~"
+        markers CMakeLists.txt
+        targets build cmake-build-*
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+        skip_hidden true
+    }
+}
+
+project xcode {
+    search {
+        type static
+        dirs "~/Library/Developer/Xcode/DerivedData" "~/Library/Developer/Xcode/Archives"
+    }
+}
+
+project nvm {
+    search {
+        type static
+        dirs "~/.nvm/.cache"
+    }
+}
+
+project pyenv {
+    search {
+        type static
+        dirs "~/.pyenv/cache"
+    }
+}
+
+project vscode {
+    search {
+        type static
+        dirs "~/Library/Application Support/Code/Cache" "~/Library/Application Support/Code/CachedData"
+    }
+}
+
+project intellij {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "IntelliJIdea.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project pycharm {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "PyCharm.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project webstorm {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "WebStorm.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project goland {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "GoLand.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project phpstorm {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "PhpStorm.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project rider {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "Rider.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project clion {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "CLion.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+project rubymine {
+    search {
+        type regex
+        base "~/Library/Caches/JetBrains"
+        pattern "RubyMine.*"
+        skip_dirs ~/Applications ~/Desktop ~/Movies ~/Music ~/Pictures ~/Public
+    }
+}
+
+# ── System Cache (use search block) ──
+system ios {
+    search {
+        type static
+        dirs "~/Library/Developer/Xcode/iOS DeviceSupport" "~/Library/Developer/Xcode/DerivedData"
+    }
+}
+
+system macos {
+    search {
+        type static
+        dirs "~/Library/Developer/CoreSimulator/Caches" "~/Library/Caches/com.apple.dt.Xcode"
+    }
+}
+
+project deno {
+    search {
+        type static
+        dirs "~/Library/Caches/deno"
+    }
+}
+
+project unity {
+    search {
+        type static
+        dirs "~/Library/Caches/Unity" "~/Library/Logs/Unity"
+    }
+}
+
+project android-sdk {
+    search {
+        type static
+        dirs "~/Library/Android/sdk/.downloadIntermediates"
+    }
+}
+
+project bazel {
+    search {
+        type static
+        dirs "~/.cache/bazel"
+    }
+}
+
+project huggingface {
+    search {
+        type static
+        dirs "~/.cache/huggingface"
+    }
+}
+
+project torch {
+    search {
+        type static
+        dirs "~/.cache/torch"
+    }
+}
+
+project ollama {
+    search {
+        type static
+        dirs "~/.ollama/models"
+    }
+}

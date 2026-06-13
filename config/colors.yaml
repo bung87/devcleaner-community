@@ -1,0 +1,89 @@
+# Color configuration for MacDevCleaner
+# Professional color scheme based on macOS Human Interface Guidelines
+# Supports hex colors (#RRGGBB) and rgba() format for transparency
+
+lightTheme:
+  # Background colors - subtle hierarchy
+  background: "#F0F0F0"           # Window background - light gray
+  listBackground: "#FFFFFF"       # Content area - pure white
+  rowBackground: "rgba(255, 255, 255, 0.0)"  # Default row - transparent
+  rowBackgroundAlt: "#F5F5F7"     # Alternating row - subtle gray
+  dialogBackground: "#FFFFFF"     # Modal/dialog background
+
+  # Button colors - silver/rust theme
+  buttonBackground: "#8E8E93"     # Primary action - dark silver
+  buttonBackgroundHover: "#A1A1A6" # Lighter on hover
+  buttonBackgroundPressed: "#7A7A7F" # Darker when pressed
+  buttonBackgroundDisabled: "#C7C7CC" # Disabled state - gray
+  buttonSecondary: "#6C6C70"      # Secondary/Cancel - darker silver for better contrast
+  buttonSecondaryHover: "#8E8E93" # Lighter silver on hover
+  buttonDestructive: "#8B4513"    # Destructive/Confirm - deep rust/saddle brown
+  buttonDestructiveHover: "#A0522D" # Lighter rust on hover
+  buttonText: "#FFFFFF"            # Button text color - white for dark buttons
+
+  # Text colors - clear hierarchy
+  textPrimary: "#000000"          # Primary text - black
+  textSecondary: "#3C3C43"        # Secondary text - dark gray
+  textMuted: "#8E8E93"            # Tertiary/muted text - medium gray
+  textInverse: "#FFFFFF"          # Text on colored backgrounds
+  textDisabled: "#C7C7CC"         # Disabled text
+  subtitle: "#6C6C70"             # Subtitle/label text - medium gray
+
+  # Border and separator colors
+  border: "#C6C6C8"               # Borders
+  separator: "#E5E5EA"            # Dividers between sections
+
+  # Accent colors - silver
+  accent: "#A1A1A6"               # Primary accent - silver
+  accentHover: "#B8B8BC"          # Hover state - light silver
+  accentPressed: "#8E8E93"        # Pressed state - dark silver
+  overlay: "rgba(0, 0, 0, 0.32)"  # Modal overlay
+
+  # Status colors - rust theme
+  success: "#8B6F47"              # Success/bronze
+  warning: "#B87333"              # Warning/rust copper
+  error: "#A0522D"                # Error/rust brown
+  info: "#708090"                 # Info/slate gray
+
+darkTheme:
+  # Background colors - dark mode palette
+  background: "#1C1C1E"           # Window background - dark gray
+  listBackground: "#2C2C2E"       # Content area - slightly lighter
+  rowBackground: "rgba(44, 44, 46, 0.0)"  # Default row - transparent
+  rowBackgroundAlt: "#3A3A3C"     # Alternating row - subtle contrast
+  dialogBackground: "#2C2C2E"     # Modal/dialog background
+
+  # Button colors - silver/rust theme (brighter in dark mode)
+  buttonBackground: "#A1A1A6"     # Primary action - silver
+  buttonBackgroundHover: "#B8B8BC" # Lighter on hover
+  buttonBackgroundPressed: "#8E8E93" # Darker when pressed
+  buttonBackgroundDisabled: "#48484A" # Disabled state
+  buttonSecondary: "#8E8E93"      # Secondary/Cancel - silver
+  buttonSecondaryHover: "#A1A1A6" # Lighter on hover
+  buttonDestructive: "#A0522D"    # Destructive/Confirm - rust
+  buttonDestructiveHover: "#B8632D" # Lighter rust on hover
+  buttonText: "#FFFFFF"            # Button text color - white for dark buttons
+
+  # Text colors - inverted for dark mode
+  textPrimary: "#FFFFFF"          # Primary text - white
+  textSecondary: "#EBEBF5"        # Secondary text - light gray
+  textMuted: "#8E8E93"            # Tertiary/muted text
+  textInverse: "#000000"          # Text on light backgrounds
+  textDisabled: "#48484A"         # Disabled text
+  subtitle: "#A0A0A5"             # Subtitle/label text - medium gray for dark mode
+
+  # Border and separator colors
+  border: "#38383A"               # Borders
+  separator: "#3A3A3C"            # Dividers
+
+  # Accent colors - silver (brighter in dark mode)
+  accent: "#B8B8BC"               # Primary accent - light silver
+  accentHover: "#D1D1D6"          # Hover state - lighter silver
+  accentPressed: "#A1A1A6"        # Pressed state - silver
+  overlay: "rgba(0, 0, 0, 0.75)"  # Modal overlay (darker)
+
+  # Status colors - rust theme (adjusted for dark mode)
+  success: "#A08050"              # Success/bronze (brighter)
+  warning: "#D4843C"              # Warning/rust copper (brighter)
+  error: "#B8632D"                # Error/rust brown (brighter)
+  info: "#8090A0"                 # Info/slate gray (brighter)
